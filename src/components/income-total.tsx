@@ -13,9 +13,7 @@ export default function IncomeTotal() {
 		<div style={{ textAlign: "center" }}>
 			<h3>INCOME</h3>
 			<h2
-				style={{
-					color: status === INCOME_STATUS.HIGH ? "green" : "red",
-				}}
+				style={{ color: 'green' }}
 			>
 				{humanReadableIncome(total)}
 			</h2>

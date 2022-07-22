@@ -1,6 +1,7 @@
-import useTransaction from "../store/transaction";
+import { Card, Grid } from "@mantine/core";
+import useTransaction, { TRANSACTION_TYPE } from "../store/transaction";
 
-import { humanReadablePrice } from '../core/utils';
+import { humanReadablePrice } from "../core/utils";
 
 export default function Transactions() {
 	const transactions = useTransaction((state) => state.transactions);
@@ -9,13 +10,29 @@ export default function Transactions() {
 
 	const humanReadableTotal = humanReadablePrice();
 
+
 	return (
 		<div>
 			{getTransactions().map((t) => (
-				<>
-					<h1>{t.label}</h1>
-					<h2>{humanReadableTotal(t.total)}</h2>
-				</>
+				<Card
+					shadow="sm"
+					p="lg"
+					mb="lg"
+					style={{
+						borderRight: `10px solid ${
+							t.type === TRANSACTION_TYPE.INCOME ? "green" : "red"
+						}`,
+					}}
+				>
+					<Grid>
+						<Grid.Col span={9}>
+							<h2>{t.label}</h2>
+						</Grid.Col>
+						<Grid.Col span={3}>
+							<h2>{humanReadableTotal(t.total)}</h2>
+						</Grid.Col>
+					</Grid>
+				</Card>
 			))}
 		</div>
 	);

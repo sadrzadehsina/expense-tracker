@@ -13,9 +13,7 @@ export default function ExpenseTotal() {
 	return (
 		<div style={{ textAlign: "center" }}>
 			<h3>EXPENSE</h3>
-			<h2 style={{ color: status === EXPENSE_STATUS.HIGH ? "red" : "green" }}>
-				{humanReadableExpense(total)}
-			</h2>
+			<h2 style={{ color: "red" }}>{humanReadableExpense(total)}</h2>
 		</div>
 	);
 }
