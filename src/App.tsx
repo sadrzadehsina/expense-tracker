@@ -4,11 +4,12 @@ import { useForm } from "@mantine/form";
 import ExpenseTotal from "./components/expense-total";
 import IncomeTotal from "./components/income-total";
 import Wallet from "./components/wallet";
-import Transactions from './components/transactions';
+import Transactions from "./components/transactions";
 
 import { makeItem } from "./core/item";
 import type { Item } from "./core/item";
 
+import useWallet from "./store/wallet";
 import useIncome from "./store/income";
 import useExpense from "./store/expense";
 import useTransaction, { TRANSACTION_TYPE } from "./store/transaction";
@@ -26,6 +27,8 @@ function App() {
 		},
 	});
 
+	const addToWallet = useWallet((state) => state.addToWallet);
+	const removeFromWallet = useWallet((state) => state.removeFromWallet);
 	const addIncome = useIncome((state) => state.addIncome);
 	const addExpense = useExpense((state) => state.addExpense);
 	const addTransaction = useTransaction((state) => state.addTransaction);
@@ -33,12 +36,17 @@ function App() {
 	const submitTransaction = ({ label, total }: FormItem) => {
 		const item = makeItem({ label, total: parseFloat(total) });
 
-		addTransaction({
-			...item,
-			type: total.startsWith("-")
-				? TRANSACTION_TYPE.EXPENSE
-				: TRANSACTION_TYPE.INCOME,
-		});
+		const isExpense = total.startsWith("-");
+
+		if (isExpense) {
+			addExpense(item.total);
+			removeFromWallet(item.total);
+			addTransaction({ ...item, type: TRANSACTION_TYPE.EXPENSE });
+		} else {
+			addIncome(item.total);
+			addToWallet(item.total);
+			addTransaction({ ...item, type: TRANSACTION_TYPE.INCOME });
+		}
 	};
 
 	return (
@@ -51,7 +59,7 @@ function App() {
 			<ExpenseTotal />
 			<IncomeTotal />
 
-			<h3>History</h3>
+			<h3>History ( last 3 )</h3>
 			<hr />
 			<Transactions />
 

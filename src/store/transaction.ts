@@ -21,16 +21,16 @@ interface TransactionState {
 const useTransaction = create<TransactionState>()((set, get) => ({
 	transactions: [],
 
-	getTransactions: () => get().transactions,
+	getTransactions: () => get().transactions.slice(0, 3),
 
 	addTransaction: (item) => {
 		set(
 			produce((state) => {
-				state.transactions.push(item);
+				state.transactions.unshift(item);
 			})
 		);
 	},
 }));
 
 export default useTransaction;
-export { TRANSACTION_TYPE }
+export { TRANSACTION_TYPE };

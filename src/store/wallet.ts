@@ -49,7 +49,7 @@ const useWallet = create<WalletState>()((set, get) => ({
 	removeFromWallet: (amount) => {
 		set(
 			produce((state) => {
-				state.wallet.total -= amount;
+				state.wallet.total -= Math.abs(amount);
 				state.wallet.status = getAppropriateStatus(state.wallet.total);
 			})
 		);
