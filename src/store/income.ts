@@ -52,3 +52,4 @@ const useIncome = create<IncomeState>()((set, get) => ({
 }));
 
 export default useIncome;
+export { INCOME_STATUS }

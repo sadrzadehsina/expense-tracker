@@ -1,5 +1,13 @@
 import React from "react";
-import { TextInput, Box, Button, Container, Center } from "@mantine/core";
+import {
+	Card,
+	Grid,
+	TextInput,
+	Box,
+	Button,
+	Container,
+	Center,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import ExpenseTotal from "./components/expense-total";
 import IncomeTotal from "./components/income-total";
@@ -56,8 +64,17 @@ function App() {
 			</Center>
 
 			<Wallet />
-			<ExpenseTotal />
-			<IncomeTotal />
+
+			<Card shadow="sm" p="xs">
+				<Grid>
+					<Grid.Col span={6}>
+						<IncomeTotal />
+					</Grid.Col>
+					<Grid.Col span={6}>
+						<ExpenseTotal />
+					</Grid.Col>
+				</Grid>
+			</Card>
 
 			<h3>History ( last 3 )</h3>
 			<hr />
@@ -67,20 +84,26 @@ function App() {
 			<hr />
 
 			<form onSubmit={form.onSubmit(submitTransaction)}>
-				<TextInput
-					required
-					label="Label"
-					placeholder="Enter text..."
-					{...form.getInputProps("label")}
-				/>
-				<TextInput
-					required
-					label="Total"
-					placeholder="Enter total..."
-					{...form.getInputProps("total")}
-				/>
 				<Box mt="md">
-					<Button type="submit" fullWidth>
+					<TextInput
+						required
+						label="Label"
+						placeholder="Enter text..."
+						size="lg"
+						{...form.getInputProps("label")}
+					/>
+				</Box>
+				<Box mt="md">
+					<TextInput
+						required
+						label="Total"
+						placeholder="Enter total..."
+						size="lg"
+						{...form.getInputProps("total")}
+					/>
+				</Box>
+				<Box mt="md">
+					<Button type="submit" size="lg" fullWidth>
 						Add transaction
 					</Button>
 				</Box>

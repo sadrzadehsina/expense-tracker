@@ -1,15 +1,24 @@
 import { useState, useEffect } from "react";
 
-import useIncome from '../store/income';
+import useIncome, { INCOME_STATUS } from "../store/income";
+import { humanReadablePrice } from "../core/utils";
 
 export default function IncomeTotal() {
+	const total = useIncome((state) => state.income.total);
+	const status = useIncome((state) => state.income.status);
 
-	const total = useIncome(state => state.income.total);
+	const humanReadableIncome = humanReadablePrice();
 
 	return (
-		<>
-			<h3>Income</h3>
-			<h2>{total}</h2>
-		</>
+		<div style={{ textAlign: "center" }}>
+			<h3>INCOME</h3>
+			<h2
+				style={{
+					color: status === INCOME_STATUS.HIGH ? "green" : "red",
+				}}
+			>
+				{humanReadableIncome(total)}
+			</h2>
+		</div>
 	);
 }

@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
 
-import useExpense from '../store/expense';
+import useExpense, { EXPENSE_STATUS } from "../store/expense";
+
+import { humanReadablePrice } from "../core/utils";
 
 export default function ExpenseTotal() {
+	const total = useExpense((state) => state.expense.total);
+	const status = useExpense((state) => state.expense.status);
 
-	const total = useExpense(state => state.expense.total);
+	const humanReadableExpense = humanReadablePrice();
 
 	return (
-		<>
-			<h3>Expense</h3>
-			<h2>{total}</h2>
-		</>
+		<div style={{ textAlign: "center" }}>
+			<h3>EXPENSE</h3>
+			<h2 style={{ color: status === EXPENSE_STATUS.HIGH ? "red" : "green" }}>
+				{humanReadableExpense(total)}
+			</h2>
+		</div>
 	);
 }

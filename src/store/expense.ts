@@ -34,7 +34,7 @@ const useExpense = create<ExpenseState>()((set, get) => ({
 	addExpense: (total) => {
 		set(
 			produce((state) => {
-				state.expense.total += total;
+				state.expense.total += Math.abs(total);
 
 				state.expense.status = getAppropriateStatus(state.expense.total);
 			})
@@ -52,3 +52,4 @@ const useExpense = create<ExpenseState>()((set, get) => ({
 }));
 
 export default useExpense;
+export { EXPENSE_STATUS }
