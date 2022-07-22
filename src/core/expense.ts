@@ -1,3 +1,5 @@
+import { humanReadablePrice } from './utils';
+
 enum EXPENSE_STATUS {
 	LOW,
 	HIGH,
@@ -30,6 +32,15 @@ const clearExpense = () => {
 	expense.total = 0;
 
 	expense.status = getAppropriateStatus(expense.total);
+}
+
+const humanReadableExpense = humanReadablePrice();
+
+export {
+	getExpense,
+	addExpense,
+	clearExpense,
+	humanReadableExpense,
 }
 
 export type { Expense }
