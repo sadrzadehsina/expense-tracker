@@ -1,12 +1,13 @@
-interface Item { label: string, total: number };
+interface Item {
+	label: string;
+	total: number;
+}
 
-const makeItem = ({ label, total }: Item ): Item=> ({
+const makeItem = ({ label, total }: Item): Item => ({
 	label,
 	total,
 });
 
-export {
-	makeItem
-}
+export { makeItem };
 
-export type { Item }
+export type { Item };

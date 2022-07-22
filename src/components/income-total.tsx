@@ -8,8 +8,8 @@ export default function IncomeTotal() {
 
 	return (
 		<>
-			<h4>Income</h4>
-			<h4>total is: {total}</h4>
+			<h3>Income</h3>
+			<h2>{total}</h2>
 		</>
 	);
 }

@@ -8,8 +8,8 @@ export default function Wallet() {
 
 	return (
 		<>
-			<h4>Income</h4>
-			<h4>total is: {total}</h4>
+			<h3>Your Balance</h3>
+			<h1>{total}</h1>
 		</>
 	);
 }

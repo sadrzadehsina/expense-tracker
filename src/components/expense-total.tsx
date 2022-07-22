@@ -8,8 +8,8 @@ export default function ExpenseTotal() {
 
 	return (
 		<>
-			<h4>Expense</h4>
-			<h4>total is: {total}</h4>
+			<h3>Expense</h3>
+			<h2>{total}</h2>
 		</>
 	);
 }
