@@ -10,7 +10,6 @@ export default function Transactions() {
 
 	const humanReadableTotal = humanReadablePrice();
 
-
 	return (
 		<div>
 			{getTransactions().map((t) => (
@@ -19,17 +18,17 @@ export default function Transactions() {
 					p="lg"
 					mb="lg"
 					style={{
-						borderRight: `10px solid ${
+						borderRight: `5px solid ${
 							t.type === TRANSACTION_TYPE.INCOME ? "green" : "red"
 						}`,
 					}}
 				>
 					<Grid>
 						<Grid.Col span={9}>
-							<h2>{t.label}</h2>
+							<div>{t.label}</div>
 						</Grid.Col>
 						<Grid.Col span={3}>
-							<h2>{humanReadableTotal(t.total)}</h2>
+							<div style={{ textAlign: 'right' }}>{humanReadableTotal(t.total)}</div>
 						</Grid.Col>
 					</Grid>
 				</Card>

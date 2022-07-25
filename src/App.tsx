@@ -13,6 +13,7 @@ import ExpenseTotal from "./components/expense-total";
 import IncomeTotal from "./components/income-total";
 import Wallet from "./components/wallet";
 import Transactions from "./components/transactions";
+import TransactionForm from "./components/transaction-form";
 
 import { makeItem } from "./core/item";
 import type { Item } from "./core/item";
@@ -28,13 +29,6 @@ interface FormItem {
 }
 
 function App() {
-	const form = useForm({
-		initialValues: {
-			label: "",
-			total: "",
-		},
-	});
-
 	const addToWallet = useWallet((state) => state.addToWallet);
 	const removeFromWallet = useWallet((state) => state.removeFromWallet);
 	const addIncome = useIncome((state) => state.addIncome);
@@ -49,12 +43,16 @@ function App() {
 		if (isExpense) {
 			addExpense(item.total);
 			removeFromWallet(item.total);
-			addTransaction({ ...item, type: TRANSACTION_TYPE.EXPENSE });
 		} else {
 			addIncome(item.total);
 			addToWallet(item.total);
-			addTransaction({ ...item, type: TRANSACTION_TYPE.INCOME });
 		}
+
+		addTransaction({
+			...item,
+			type: isExpense ? TRANSACTION_TYPE.EXPENSE : TRANSACTION_TYPE.INCOME,
+		});
+
 	};
 
 	return (
@@ -82,32 +80,7 @@ function App() {
 
 			<h3>Add new transaction</h3>
 			<hr />
-
-			<form onSubmit={form.onSubmit(submitTransaction)}>
-				<Box mt="md">
-					<TextInput
-						required
-						label="Label"
-						placeholder="Enter text..."
-						size="lg"
-						{...form.getInputProps("label")}
-					/>
-				</Box>
-				<Box mt="md">
-					<TextInput
-						required
-						label="Total"
-						placeholder="Enter total..."
-						size="lg"
-						{...form.getInputProps("total")}
-					/>
-				</Box>
-				<Box mt="md">
-					<Button type="submit" size="lg" fullWidth>
-						Add transaction
-					</Button>
-				</Box>
-			</form>
+			<TransactionForm onSubmit={submitTransaction} />
 		</Container>
 	);
 }
