@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Title } from '@mantine/core';
 
 import useExpense, { EXPENSE_STATUS } from "../store/expense";
 
@@ -12,8 +13,8 @@ export default function ExpenseTotal() {
 
 	return (
 		<div style={{ textAlign: "center" }}>
-			<h3>EXPENSE</h3>
-			<h2 style={{ color: "red" }}>{humanReadableExpense(total)}</h2>
+			<Title order={3}>EXPENSE</Title>
+			<Title order={2} style={{ color: "red" }}>{humanReadableExpense(total)}</Title>
 		</div>
 	);
 }

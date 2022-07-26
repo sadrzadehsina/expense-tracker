@@ -7,6 +7,8 @@ import {
 	Button,
 	Container,
 	Center,
+	Divider,
+	Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import ExpenseTotal from "./components/expense-total";
@@ -52,7 +54,6 @@ function App() {
 			...item,
 			type: isExpense ? TRANSACTION_TYPE.EXPENSE : TRANSACTION_TYPE.INCOME,
 		});
-
 	};
 
 	return (
@@ -60,7 +61,6 @@ function App() {
 			<Center>
 				<h1>Expense Tracker</h1>
 			</Center>
-
 			<Wallet />
 
 			<Card shadow="sm" p="xs">
@@ -75,11 +75,13 @@ function App() {
 			</Card>
 
 			<h3>History ( last 3 )</h3>
-			<hr />
-			<Transactions />
+			<Divider />
+			<Box mt={16}>
+				<Transactions />
+			</Box>
 
 			<h3>Add new transaction</h3>
-			<hr />
+			<Divider />
 			<TransactionForm onSubmit={submitTransaction} />
 		</Container>
 	);

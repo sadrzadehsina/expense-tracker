@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Title } from '@mantine/core';
 
 import useIncome, { INCOME_STATUS } from "../store/income";
 import { humanReadablePrice } from "../core/utils";
@@ -11,12 +12,8 @@ export default function IncomeTotal() {
 
 	return (
 		<div style={{ textAlign: "center" }}>
-			<h3>INCOME</h3>
-			<h2
-				style={{ color: 'green' }}
-			>
-				{humanReadableIncome(total)}
-			</h2>
+			<Title order={3}>INCOME</Title>
+			<Title order={2} style={{ color: "green" }}>{humanReadableIncome(total)}</Title>
 		</div>
 	);
 }
