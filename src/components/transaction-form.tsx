@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { Box, TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -11,6 +12,10 @@ interface FormProps {
 }
 
 export default function TransactionForm({ onSubmit }: FormProps) {
+	const firstInputRef = useRef<HTMLInputElement>(null);
+
+	const focusOnFirstInput = () => firstInputRef?.current?.focus();
+
 	const form = useForm({
 		initialValues: {
 			label: "",
@@ -18,14 +23,25 @@ export default function TransactionForm({ onSubmit }: FormProps) {
 		},
 	});
 
+	const submitAndReset = (state: any) => {
+		onSubmit(state);
+		form.reset();
+		focusOnFirstInput();
+	};
+
+	useEffect(() => {
+		focusOnFirstInput();
+	}, []);
+
 	return (
-		<form onSubmit={form.onSubmit(onSubmit)}>
+		<form onSubmit={form.onSubmit(submitAndReset)}>
 			<Box mt="md">
 				<TextInput
 					required
 					label="Label"
 					placeholder="Enter text..."
 					size="lg"
+					ref={firstInputRef}
 					{...form.getInputProps("label")}
 				/>
 			</Box>
